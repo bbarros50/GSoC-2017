@@ -1,6 +1,6 @@
 %cython
 def mandelbrot_plot(float x_center, float y_center, float image_width = 4, int max_iteration = 500, int pixel_count = 500):
-    ''' Function plots Mandelbrot set in the complex plane. Last updated 6:00 pm 6/9/17 '''
+    ''' Function plots Mandelbrot set in the complex plane.'''
     from sage.plot.colors import Color
     from sage.repl.image import Image
 
