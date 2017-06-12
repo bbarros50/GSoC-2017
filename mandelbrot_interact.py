@@ -9,12 +9,24 @@ def mandelbrot_interact(sliders=False):
 
     ::
 
+    If you prefer to use sliders, set sliders to True,
+
         mandelbrot_interact(sliders=True)
 
     OUTPUT:
 
     - Interactive graph of the Mandelbrot set with textboxes controlling the maximum number of iterations, center point, and zoom parameters.
     """
+    #*****************************************************************************
+    #       Copyright (C) 2017 BEN BARROS <bbarros@slu.edu>
+    #
+    # This program is free software: you can redistribute it and/or modify
+    # it under the terms of the GNU General Public License as published by
+    # the Free Software Foundation, either version 2 of the License, or
+    # (at your option) any later version.
+    #                  http://www.gnu.org/licenses/
+    #*****************************************************************************
+
     if sliders == False:
         @interact(layout={'bottom':[['x_center'],['y_center'],['width']],'top':[['iterations']]})
         def _(x_center = input_box(-1.0, 'Real'),
