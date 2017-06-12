@@ -24,29 +24,49 @@ def mandelbrot_plot(float x_center, float y_center, **kwds):
 
     EXAMPLES::
 
+    Plot the Mandelbrot set with the center point $-1 + 0i$
+
         sage: mandelbrot_plot(-1,0)
         Launched png viewer for 500x500px 24-bit RGB image
 
     ::
+
+    The base_color key word allows us to change the color of the graph.
 
         sage: mandelbrot_plot(-1,0,base_color=[140,40,20])
         Launched png viewer for 500x500px 24-bit RGB image
 
     ::
 
+    We can also change make the image larger by increasing the pixel_count.
+
         sage: mandelbrot_plot(-1,0,pixel_count=1000)
         Launched png viewer for 1000x1000px 24-bit RGB image
 
     ::
+
+    If we decrease the max_iteration variable, we get a less accuract picture of the set.
 
         sage: mandelbrot_plot(-1,0,max_iteration=50)
         Launched png viewer for 500x500px 24-bit RGB image
 
     ::
 
+    We can focus on smaller parts of the set by adjusting image_width.
+
         sage: mandelbrot_plot(-0.75,0.10,image_width=1/4)
         Launched png viewer for 500x500px 24-bit RGB image
     """
+    #*****************************************************************************
+    #       Copyright (C) 2017 BEN BARROS <bbarros@slu.edu>
+    #
+    # This program is free software: you can redistribute it and/or modify
+    # it under the terms of the GNU General Public License as published by
+    # the Free Software Foundation, either version 2 of the License, or
+    # (at your option) any later version.
+    #                  http://www.gnu.org/licenses/
+    #*****************************************************************************
+
 
     from sage.plot.colors import Color
     from sage.repl.image import Image
