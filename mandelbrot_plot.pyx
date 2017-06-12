@@ -1,13 +1,12 @@
-%cython
 def mandelbrot_plot(float x_center, float y_center, **kwds):
     r"""
-    Function plots Mandelbrot set in the complex plane for the map ``f(z) = z^2 + c``.
+    Function plots Mandelbrot set in the complex plane for the map $f(z) = z^2 + c$.
 
     INPUT:
 
-    - x_center --  ``x`` (real) coordinate of the center in the complex plane.
+    - x_center --  real part of the center point in the complex plane.
 
-    - y_center -- ``y`` (imaginary) coordinate of the center in the complex plane.
+    - y_center -- imaginary part of the center point in the complex plane.
 
     kwds:
 
@@ -23,14 +22,30 @@ def mandelbrot_plot(float x_center, float y_center, **kwds):
 
     - A plot of the Mandelbrot set in the complex plane.
 
-    EXAMPLES:
+    EXAMPLES::
 
-    sage: mandelbrot_plot(-1,0)
-Launched png viewer for 500x500px 24-bit RGB image
+        sage: mandelbrot_plot(-1,0)
+        Launched png viewer for 500x500px 24-bit RGB image
 
-::
+    ::
 
-    sage: mandelbrot_plot(0.25,0.5,pixel_count=900,image_width=0.5,max_iteration=150)
+        sage: mandelbrot_plot(-1,0,base_color=[140,40,20])
+        Launched png viewer for 500x500px 24-bit RGB image
+
+    ::
+
+        sage: mandelbrot_plot(-1,0,pixel_count=1000)
+        Launched png viewer for 1000x1000px 24-bit RGB image
+
+    ::
+
+        sage: mandelbrot_plot(-1,0,max_iteration=50)
+        Launched png viewer for 500x500px 24-bit RGB image
+
+    ::
+
+        sage: mandelbrot_plot(-0.75,0.10,image_width=1/4)
+        Launched png viewer for 500x500px 24-bit RGB image
     """
 
     from sage.plot.colors import Color
@@ -45,9 +60,8 @@ Launched png viewer for 500x500px 24-bit RGB image
     cdef float new_x, new_y, x_coor, y_coor
     cdef color_list
 
-    #max_iteration = 400 - 50*log(image_width)
-
-    y_center *= -1 # reflect image about x-axis
+    # reflect image about x-axis
+    y_center *= -1
 
     M = Image("RGB", (pixel_count,pixel_count), 'black') # create image
     pixel = M.pixels() # get pixels
@@ -65,15 +79,15 @@ Launched png viewer for 500x500px 24-bit RGB image
         for col in range(pixel_count): # loop through pixels
             y_coor = y_center + image_width*(col-pixel_count/2)/pixel_count
 
-
-            new_x,new_y = (0.0, 0.0) # compute the orbit of 0 under the map f(z) = z^2 + c
+            # compute the orbit of 0 under the map f(z) = z^2 + c
+            new_x,new_y = (0.0, 0.0)
             iteration = 0
 
             while (new_x**2 + new_y**2 <= 4.0 and iteration < max_iteration): # escape condition
                 new_x,new_y = new_x**2 - new_y**2 + x_coor, 2*new_x*new_y + y_coor
                 iteration += 1
 
-            if iteration < max_iteration/color_num:  # starts with it < max/colNum
+            if iteration < max_iteration/color_num:
                 pixel[row,col] = color_list[0]
             elif iteration < 2*max_iteration/color_num:
                 pixel[row,col] = color_list[1]

@@ -1,6 +1,19 @@
 def mandelbrot_interact(sliders=False):
     r"""
-    Function plots an interactive Mandelbrot set.
+    Interactive plot of the Mandelbrot set for the map $f(z) = z^2 + c$. The optional parameter ``sliders`` allows the user to control
+    the center point of the graph with sliders rather than a textbox.
+
+    NOTEBOOK EXAMPLES::
+
+        mandelbrot_interact()
+
+    ::
+
+        mandelbrot_interact(sliders=True)
+
+    OUTPUT:
+
+    - Interactive graph of the Mandelbrot set with textboxes controlling the maximum number of iterations, center point, and zoom parameters.
     """
     if sliders == False:
         @interact(layout={'bottom':[['x_center'],['y_center'],['width']],'top':[['iterations']]})
