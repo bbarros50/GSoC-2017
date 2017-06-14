@@ -1,4 +1,5 @@
-def mandelbrot_plot(float x_center, float y_center, **kwds):
+def mandelbrot_plot(float x_center = -1.0, float y_center = 0.0, float image_width = 4.0,
+ int max_iteration = 500, int pixel_count = 500, base_color = [70,40,240]):
     r"""
     Function plots Mandelbrot set in the complex plane for the map $f(z) = z^2 + c$.
 
@@ -8,15 +9,13 @@ def mandelbrot_plot(float x_center, float y_center, **kwds):
 
     - y_center -- imaginary part of the center point in the complex plane.
 
-    kwds:
+    - image_width -- float (optional - default: ``4``).
 
-    - ``image_width`` -- float (optional - default: ``4``).
+    - max_iteration -- int (optional - default: ``500``).
 
-    - ``max_iteration`` -- int (optional - default: ``500``).
+    - pixel_count -- int (optional - default: ``500``).
 
-    - ``pixel_count`` -- int (optional - default: ``500``).
-
-    - ``base_color`` -- (optional - default: ``[70, 40, 240]``)
+    - base_color -- (optional - default: ``[70, 40, 240]``)
 
     OUTPUT:
 
@@ -70,11 +69,7 @@ def mandelbrot_plot(float x_center, float y_center, **kwds):
 
     from sage.plot.colors import Color
     from sage.repl.image import Image
-
-    cdef float image_width = kwds.pop("image_width",4)
-    cdef int max_iteration = kwds.pop("max_iteration",500)
-    cdef int pixel_count = kwds.pop("pixel_count",500)
-    cdef base_color = kwds.pop("base_color",[70,40,240])
+    from copy import copy
 
     cdef int color_value, row, col, iteration, color_num, i, j
     cdef float new_x, new_y, x_coor, y_coor
@@ -89,7 +84,7 @@ def mandelbrot_plot(float x_center, float y_center, **kwds):
     color_num = 20 # number of colors
     color_list = []
     for i in range(color_num):
-        color_list.append(base_color)
+        color_list.append(copy(base_color))
         for j in range(3):
             color_list[i][j] += i*(255-color_list[i][j])/color_num
         color_list[i] = tuple(color_list[i])
@@ -148,3 +143,24 @@ def mandelbrot_plot(float x_center, float y_center, **kwds):
             elif iteration < max_iteration:
                 pixel[row,col] = color_list[19]
     return M
+
+
+def mandel_plot(**kwds):
+    x_center = kwds.pop("x_center",-1.0)
+    y_center = kwds.pop("y_center",0.0)
+    image_width = kwds.pop("image_width",4.0)
+    max_iteration = kwds.pop("max_iteration",500)
+    pixel_count = kwds.pop("pixel_count",500)
+    base_color = kwds.pop("base_color",[70,40,240])
+    interacts = kwds.pop("interacts",True)
+
+    if interacts:
+        @interact(layout={'bottom':[['real_center'],['im_center'],['width']],'top':[['iterations']]})
+        def _(real_center = input_box(-1.0, 'Real'),
+            im_center = input_box(0.0,'Imaginary'),
+            width = slider([2^(-i) for i in range(-2,15)],label= 'Width of Image'),
+            iterations = input_box(500,'Max Number of Iterations')):
+            print "Center: %s + %s*i" % (real_center,im_center)
+            mandelbrot_plot(real_center, im_center, width, iterations, pixel_count, base_color).show()
+    else:
+        mandelbrot_plot(x_center, y_center, image_width, max_iteration, pixel_count, base_color).show()
