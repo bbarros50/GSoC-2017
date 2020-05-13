@@ -6,5 +6,20 @@ For more details on this project please visit [my blog](https://benbarros.wordpr
 
 Here are a few cool images that I was able to plot using the Complex Dynamics functionality in Sage:
 
+## Mandelbrot Sets for f(z) = z^2 + c
 ![Mandelbrot2](/Images/mandelbrot2.png)
+![Mandelbrot4](/Images/mandelbrot4.png)
+![Mandelbrot5](/Images/Mandelbrot5.png)
 
+## Julia Sets
+
+![JuliaSet](/Images/final_report_julia.png)
+
+## External Rays
+
+![ExternalRays](/Images/final_report_rays.png)
+
+## Mandelbrot Sets for General Functions f(z)
+
+![GeneralMandel](/Images/final_report_general_mandel.png)
+![GeneralMandel2](/Images/general_mandebrot1.png)
